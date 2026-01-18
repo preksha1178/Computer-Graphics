@@ -67,8 +67,8 @@ Run the program. A menu will appear in the console:
 6. Exit
 Enter your choice:
 
-Sample Inputs for Testing
-1️⃣ Line Drawing
+## Sample Inputs for Testing
+## Line Drawing
 
 Submenu choice: 1 → DDA, 2 → Bresenham
 
@@ -77,7 +77,7 @@ Input coordinates:
 x1 y1: 100 100
 x2 y2: 300 200
 
-2️⃣ Circle Drawing
+## Circle Drawing
 
 Submenu choice: 1 → Midpoint, 2 → Bresenham
 
@@ -86,20 +86,20 @@ Input center and radius:
 x y: 320 240
 radius: 100
 
-3️⃣ Ellipse Drawing
+## Ellipse Drawing
 
 Input center and radii:
 
 x y: 320 240
 x-radius y-radius: 150 80
 
-4️⃣ Rectangle Drawing
+## Rectangle Drawing
 
 Input top-left and bottom-right coordinates:
 
 x1 y1 x2 y2: 150 100 450 300
 
-5️⃣ Triangle Drawing
+## Triangle Drawing
 
 Input three vertices:
 
@@ -118,11 +118,11 @@ Ellipse Drawing
 
 Rectangle and Triangle
 
-License
+## License
 
 This project is open-source and free to use for educational purposes.
 
-Author
+## Author
 
 Preksha Jain
 
