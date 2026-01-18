@@ -105,18 +105,7 @@ Input three vertices:
 
 x1 y1 x2 y2 x3 y3: 200 300 400 300 300 100
 
-
-After each drawing, press any key to return to the menu.
-
-Repeat until you choose 6 → Exit.
-
-Line Drawing (DDA / Bresenham)
-
-Circle Drawing (Midpoint / Bresenham)
-
-Ellipse Drawing
-
-Rectangle and Triangle
+ **After each drawing, press any key to return to the menu.**
 
 ## License
 
