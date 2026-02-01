@@ -4,19 +4,18 @@
 #include <stdlib.h>
 #include <math.h>
 
-/* ================= TRANSFORMATIONS ================= */
+/*  TRANSFORMATIONS */
 
 void translate_point(int &x, int &y, int tx, int ty) {
     x += tx;
+    y += ty;
 }
 
-// Scale relative to center cx, cy
 void scale_point(int &x, int &y, float sx, float sy, int cx, int cy) {
     x = (int)(cx + (x - cx) * sx);
     y = (int)(cy + (y - cy) * sy);
 }
 
-// Rotate around center cx, cy
 void rotate_point(int &x, int &y, float angle, int cx, int cy) {
     float rad = angle * 3.14159 / 180.0;
     int xr = (int)(cx + (x - cx) * cos(rad) - (y - cy) * sin(rad));
@@ -25,7 +24,7 @@ void rotate_point(int &x, int &y, float angle, int cx, int cy) {
     y = yr;
 }
 
-/* ================= LINE DRAWING ================= */
+/*  LINE DRAWING  */
 
 void dda_line(int x1, int y1, int x2, int y2, int color) {
     int dx = x2 - x1, dy = y2 - y1;
@@ -57,7 +56,7 @@ void bresenham_line(int x1, int y1, int x2, int y2, int color) {
     }
 }
 
-/* ================= CIRCLE ================= */
+/* CIRCLE */
 
 void midpoint_circle(int xc, int yc, int r, int color) {
     int x = 0, y = r, p = 1 - r;
@@ -66,8 +65,8 @@ void midpoint_circle(int xc, int yc, int r, int color) {
         putpixel(xc + x, yc - y, color); putpixel(xc - x, yc - y, color);
         putpixel(xc + y, yc + x, color); putpixel(xc - y, yc + x, color);
         putpixel(xc + y, yc - x, color); putpixel(xc - y, yc - x, color);
-        x+
-        if (p < 0) p += 2 * x 1; else { y--; p += 2 * (x - y) + 1; }
+        x++;
+        if (p < 0) p += 2 * x + 1; else { y--; p += 2 * (x - y) + 1; }
     }
 }
 
@@ -77,13 +76,13 @@ void bresenham_circle(int xc, int yc, int r, int color) {
         putpixel(xc + x, yc + y, color); putpixel(xc - x, yc + y, color);
         putpixel(xc + x, yc - y, color); putpixel(xc - x, yc - y, color);
         putpixel(xc + y, yc + x, color); putpixel(xc - y, yc + x, color);
-        putpixel(xc + y, yc - x, color); putpixel(xc y, yc - x, color);
+        putpixel(xc + y, yc - x, color); putpixel(xc - y, yc - x, color);
         if (d < 0) d += 4 * x + 6; else { d += 4 * (x - y) + 10; y--; }
         x++;
     }
 }
 
-/* ================= ELLIPSE ================= */
+/*  ELLIPSE */
 
 void midpoint_ellipse(int xc, int yc, int rx, int ry, int color) {
     long x = 0, y = ry;
@@ -97,7 +96,7 @@ void midpoint_ellipse(int xc, int yc, int rx, int ry, int color) {
     /* REGION 1 */
     while (dx < dy) {
         putpixel(xc + x, yc + y, color);
-        putpixel(xc - x, yc + y, color
+        putpixel(xc - x, yc + y, color);
         putpixel(xc + x, yc - y, color);
         putpixel(xc - x, yc - y, color);
 
@@ -114,7 +113,6 @@ void midpoint_ellipse(int xc, int yc, int rx, int ry, int color) {
         }
     }
 
-    /* REGION 2 (INTEGER SAFE) */
     long d2 = (ry2 * x * x) +
               (ry2 * x) +
               (rx2 * (y - 1) * (y - 1)) -
@@ -140,7 +138,7 @@ void midpoint_ellipse(int xc, int yc, int rx, int ry, int color) {
     }
 }
 
-/* ================= RECTANGLE ================= */
+/* RECTANGLE */
 
 void draw_rect(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int color) {
     setcolor(color);
@@ -151,7 +149,7 @@ void draw_rect(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, i
     setcolor(WHITE);
 }
 
-/* ================= TRIANGLE ================= */
+/* TRIANGLE */
 
 void draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, int color) {
     setcolor(color);
@@ -161,7 +159,7 @@ void draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, int color) {
     setcolor(WHITE);
 }
 
-/* ================= MAIN ================= */
+/* MAIN  */
 
 void main() {
     int gd = DETECT, gm;
@@ -180,7 +178,7 @@ void main() {
 
         cleardevice();
 
-        /* ---------- LINE ---------- */
+        /* LINE */
         if (choice == 1) {
             int algo, x1, y1, x2, y2;
             cout << "1.DDA  2.Bresenham: "; cin >> algo;
@@ -206,7 +204,7 @@ void main() {
             } while (trans_cont == 'd' || trans_cont == 'D');
         }
 
-        /* ---------- CIRCLE ---------- */
+        /* CIRCLE  */
         else if (choice == 2) {
             int algo, xc, yc, r;
             cout << "1.Midpoint 2.Bresenham: "; cin >> algo;
@@ -216,7 +214,7 @@ void main() {
 
             char trans_cont = 'd';
             do {
-                int t; cout << "1.TranslaScale: "; cin >> t;
+                int t; cout << "1.Translate 2.Scale: "; cin >> t;
                 int txc = xc, tyc = yc, tr = r;
 
                 if (t == 1) { int tx, ty; cout << "tx ty: "; cin >> tx >> ty; translate_point(txc, tyc, tx, ty); }
@@ -229,7 +227,7 @@ void main() {
             } while (trans_cont == 'd' || trans_cont == 'D');
         }
 
-        /* ---------- ELLIPSE ---------- */
+        /* ELLIPSE */
         else if (choice == 3) {
             int xc, yc, rx, ry;
             cout << "Enter xc yc rx ry: "; cin >> xc >> yc >> rx >> ry;
@@ -251,7 +249,7 @@ void main() {
             } while (trans_cont == 'd' || trans_cont == 'D');
         }
 
-        /* ---------- RECTANGLE ---------- */
+        /*  RECTANGLE  */
         else if (choice == 4) {
             int x1, y1, x3, y3, x2, y2, x4, y4;
             cout << "Enter top-left x y: "; cin >> x1 >> y1;
@@ -274,11 +272,11 @@ void main() {
                 draw_rect(tx1, ty1, tx2, ty2, tx3, ty3, tx4, ty4, RED);
 
                 cout << "Do you want to continue from starting (s) or with same coordinates with different option (d)? ";
-                cin >> trans_co
+                cin >> trans_cont;
             } while (trans_cont == 'd' || trans_cont == 'D');
         }
 
-        /* ---------- TRIANGLE ---------- */
+        /* TRIANGLE */
         else if (choice == 5) {
             int x1, y1, x2, y2, x3, y3;
             cout << "Enter x1 y1 x2 y2 x3 y3: "; cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
@@ -293,7 +291,7 @@ void main() {
                 int tx1 = x1, ty1 = y1, tx2 = x2, ty2 = y2, tx3 = x3, ty3 = y3;
 
                 if (t == 1) { int tx, ty; cout << "tx ty: "; cin >> tx >> ty; translate_point(tx1, ty1, tx, ty); translate_point(tx2, ty2, tx, ty); translate_point(tx3, ty3, tx, ty); }
-                if (t == 2) { float sx, sy; cout"sx sy: "; cin >> sx >> sy; scale_point(tx1, ty1, sx, sy, cx, cy); scale_point(tx2, ty2, sx, sy, cx, cy); scale_point(tx3, ty3, sx, sy, cx, cy); }
+                if (t == 2) { float sx, sy; cout << "sx sy: "; cin >> sx >> sy; scale_point(tx1, ty1, sx, sy, cx, cy); scale_point(tx2, ty2, sx, sy, cx, cy); scale_point(tx3, ty3, sx, sy, cx, cy); }
                 if (t == 3) { float a; cout << "angle: "; cin >> a; rotate_point(tx1, ty1, a, cx, cy); rotate_point(tx2, ty2, a, cx, cy); rotate_point(tx3, ty3, a, cx, cy); }
 
                 draw_triangle(tx1, ty1, tx2, ty2, tx3, ty3, RED);
@@ -305,9 +303,8 @@ void main() {
 
         cout << "Do you want to continue? (y/n): ";
         cin >> cont;
-    } while (cont == 'y' || cont == '
+    } while (cont == 'y' || cont == 'Y');
 
     getch();
     closegraph();
 }
-
